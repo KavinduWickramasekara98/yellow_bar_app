@@ -159,6 +159,9 @@ def upload_image():
 
 if __name__ == '__main__':
     try:
-        logger.info("Starting Flask app")
+        logger.info("Starting Flask app now")
         port = int(os.environ.get('PORT', 5000))
-        app.run(host='0.0.0.0
+        app.run(host='0.0.0.0', port=port)
+    except Exception as e:
+        logger.error(f"Failed to start Flask app: {str(e)}")
+        raise
