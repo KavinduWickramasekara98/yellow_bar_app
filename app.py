@@ -15,23 +15,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     logger.info("Health check endpoint accessed")
-    return jsonify({'status': 'Yellow Bar App is running', 'version': '1.0', 'cv2_version': cv2.__version__})
-
-@app.route('/debug')
-def debug():
-    logger.info("Debug endpoint accessed")
-    try:
-        import numpy
-        dependencies = {
-            'flask': Flask.__version__,
-            'gunicorn': 'present' if 'gunicorn' in globals() else 'not installed',
-            'opencv': cv2.__version__,
-            'numpy': numpy.__version__
-        }
-        return jsonify({'dependencies': dependencies})
-    except Exception as e:
-        logger.error(f"Debug endpoint error: {str(e)}")
-        return jsonify({'error': f"Debug error: {str(e)}"}), 500
+    return jsonify({'status': 'Yellow Bar App is running', 'version': '1.0'})
 
 def process_image(image_path):
     try:
@@ -159,7 +143,7 @@ def upload_image():
 
 if __name__ == '__main__':
     try:
-        logger.info("Starting Flask app now")
+        logger.info("Starting Flask app")
         port = int(os.environ.get('PORT', 5000))
         app.run(host='0.0.0.0', port=port)
     except Exception as e:
